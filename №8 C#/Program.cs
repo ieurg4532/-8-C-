@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,22 +8,37 @@ namespace _8_C_
 {
     class Cloak
     {
-        public string Brand;
-        public string Gender;
-        public string Color;
-        public decimal Price;
+        private string Brand;
+        private string Gender;
+        private string Color;
+        private decimal Price;
 
-        public Cloak(string brand, string gender, string color, decimal price)
+        public void Input()
         {
-            Brand = brand;
-            Gender = gender;
-            Color = color;
-            Price = price;
+            Console.Write("Brand: ");
+            Brand = Console.ReadLine();
+
+            Console.Write("Gender (male/female): ");
+            Gender = Console.ReadLine();
+
+            Console.Write("Color: ");
+            Color = Console.ReadLine();
+
+            Console.Write("Price: ");
+            Price = Convert.ToDecimal(Console.ReadLine());
         }
 
         public void Info()
         {
             Console.WriteLine($"Brand: {Brand}, Gender: {Gender}, Color: {Color}, Price: {Price:F2}");
+        }
+
+        public void analysis(string gender, string color, decimal price)
+        {
+            if (gender == Gender && color == Color && price >= Price)
+            {
+                Info();
+            }
         }
     }
     internal class Program
@@ -37,19 +52,8 @@ namespace _8_C_
             for (int i = 0; i < n; i++)
             {
                 Console.WriteLine($"\nEnter data for cloak {i + 1}: ");
-                Console.Write("Brand: ");
-                string brand = Console.ReadLine();
-
-                Console.Write("Gender (male/female): ");
-                string gender = Console.ReadLine();
-
-                Console.Write("Color: ");
-                string color = Console.ReadLine();
-
-                Console.Write("Price: ");
-                decimal price = Convert.ToDecimal(Console.ReadLine());
-
-                cloaks[i] = new Cloak(brand, gender, color, price);
+                cloaks[i] = new Cloak();
+                cloaks[i].Input();
             }
 
             Console.Write("\nEnter gender (male/female): ");
@@ -65,11 +69,9 @@ namespace _8_C_
 
             for (int i = 0; i < n; i++)
             {
-                if(Gender == cloaks[i].Gender && Color == cloaks[i].Color && Price >= cloaks[i].Price)
-                {
-                    cloaks[i].Info();
-                }
+                cloaks[i].analysis(Gender, Color, Price);
             }
         }
     }
 }
+
